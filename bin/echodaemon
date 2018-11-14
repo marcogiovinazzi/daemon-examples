@@ -1,0 +1,16 @@
+#!/usr/bin/env php
+<?php
+
+$base_path = realpath(dirname(__FILE__)."/../");
+require "$base_path/vendor/autoload.php";
+
+use \DaemonExamples\EchoDaemon;
+
+$configuration = [
+    'description' => 'Echo Daemon',
+    'sockethandler' => 'tcp://127.0.0.1:10042'
+];
+
+$daemon = new EchoDaemon($configuration);
+
+$daemon->init();

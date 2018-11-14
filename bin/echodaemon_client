@@ -1,0 +1,24 @@
+#!/usr/bin/env php
+<?php
+
+$base_path = realpath(dirname(__FILE__)."/../");
+require "$base_path/vendor/autoload.php";
+
+use \DaemonExamples\Client;
+use \Comodojo\RpcClient\RpcRequest;
+
+$client = Client::create();
+
+array_shift($argv);
+
+$input = empty($argv) ? "Hello World!" : implode(" ", $argv);
+
+$client->addRequest(
+    RpcRequest::create("examples.echo", [$input])
+);
+
+$response = $client->send();
+
+printf("\nEchoDaemon Response:\n\t\033[31m%s\033[0m\n\n", $response);
+
+exit();

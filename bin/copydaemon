@@ -1,0 +1,21 @@
+#!/usr/bin/env php
+<?php
+
+$base_path = realpath(dirname(__FILE__)."/../");
+require "$base_path/vendor/autoload.php";
+
+use \DaemonExamples\CopyDaemon;
+use \DaemonExamples\CopyWorker;
+
+$configuration = [
+    'description' => 'Copy Daemon',
+    'sockethandler' => 'tcp://127.0.0.1:10042'
+];
+
+$daemon = new CopyDaemon($configuration);
+
+$handyman = new CopyWorker("handyman");
+
+$daemon->getWorkers()->install($handyman, 10, true);
+
+$daemon->init();

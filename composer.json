@@ -1,0 +1,21 @@
+{
+    "name": "marcogiovinazzi/daemon-examples",
+    "description": "Example daemons using comodojo/daemon",
+    "license": "MIT",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Marco Giovinazzi",
+            "email": "marco.giovinazzi@comodojo.org",
+            "homepage": "http://jme.altervista.org"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "DaemonExamples\\": "src/DaemonExamples"
+        }
+    },
+    "require": {
+        "comodojo/daemon": "^1.0"
+    }
+}

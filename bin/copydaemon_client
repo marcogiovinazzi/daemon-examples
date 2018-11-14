@@ -1,0 +1,38 @@
+#!/usr/bin/env php
+<?php
+
+$base_path = realpath(dirname(__FILE__)."/../");
+require "$base_path/vendor/autoload.php";
+
+use \DaemonExamples\Client;
+use \Comodojo\RpcClient\RpcRequest;
+
+$client = Client::create();
+
+if ( !isset($argv[1]) ) {
+    exit("\nMissing argument (1)\n");
+}
+
+$argument = strtolower($argv[1]);
+switch ($argument) {
+    case "status":
+        $request = RpcRequest::create("worker.status", ["handyman"]);
+    break;
+    case "pause":
+        $request = RpcRequest::create("worker.pause", ["handyman"]);
+    break;
+    case "resume":
+        $request = RpcRequest::create("worker.resume", ["handyman"]);
+    break;
+    default:
+        exit("\nInvalid argument\n");
+    break;
+}
+
+$client->addRequest($request);
+
+$response = $client->send();
+
+printf("\nCopyDaemon Response:\n\t\033[31m%s\033[0m\n\n", $response);
+
+exit();
