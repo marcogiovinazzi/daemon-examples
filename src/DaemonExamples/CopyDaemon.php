@@ -7,7 +7,7 @@ class CopyDaemon extends AbstractDaemon {
 
     public function setup() {
 
-        
+        // Nothing to do :(
             
     }
 
