@@ -24,6 +24,9 @@ switch ($argument) {
     case "resume":
         $request = RpcRequest::create("worker.resume", ["handyman"]);
     break;
+    case "change":
+        $request = RpcRequest::create("handyman.changename", []);
+    break;
     default:
         exit("\nInvalid argument\n");
     break;

@@ -15,6 +15,10 @@ class CopyWorker extends AbstractWorker {
         $this->logger->info("CopyWorker ".$this->getName()." spinning up...");
         $this->path = realpath(dirname(__FILE__)."/../../tmp/");
 
+        // Hook on daemon.worker.changename event to change the output file name
+        $this->getEvents()
+            ->subscribe('daemon.worker.changename', '\DaemonExamples\ChangeNameListener');
+
     }
 
     public function loop() {
@@ -22,6 +26,7 @@ class CopyWorker extends AbstractWorker {
         $filename = $this->path."/".$this->file;
 
         if ( file_exists($filename) ) {
+            $this->logger->info("Copying file ".$this->file." to ".$this->copy);
             copy($filename, $this->path."/".$this->copy);
         }
 
@@ -31,6 +36,12 @@ class CopyWorker extends AbstractWorker {
 
         $this->logger->info("CopyWorker ".$this->getName()." spinning down.");
         unlink($this->path."/".$this->copy);
+
+    }
+
+    public function changeName() {
+        $this->logger->info("Changing filename...");
+        $this->copy = 'copy_test_2.txt';
 
     }
 
